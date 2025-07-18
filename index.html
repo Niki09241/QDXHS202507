@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>7月青岛“追光小勇士”场次与编码查询</title>
+  <script src="data.js"></script>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background: #f0f8ff;
+      padding: 30px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .container {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      background: #f9f9f9;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>7月青岛“追光小勇士”<br>场次与编码查询</h1>
+    <p>请输入姓名或身份证号后六位：</p>
+    <input type="text" id="query" placeholder="如：张三 或 123456" />
+    <button onclick="search()">查询</button>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    function search() {
+      const input = document.getElementById("query").value.trim();
+      if (!input) {
+        document.getElementById("result").innerHTML = "请输入有效信息。";
+        return;
+      }
+
+      const matches = participants.filter(p =>
+        p.name.includes(input) || p.idLast6 === input
+      );
+
+      if (matches.length === 0) {
+        document.getElementById("result").innerHTML = "未找到相关信息，请确认输入是否正确。";
+      } else {
+        let html = "<ul>";
+        matches.forEach(m => {
+          html += `<li><strong>${m.name}</strong> - 场次：${m.session}，编码：${m.code}</li>`;
+        });
+        html += "</ul>";
+        document.getElementById("result").innerHTML = html;
+      }
+    }
+  </script>
+</body>
+</html>
